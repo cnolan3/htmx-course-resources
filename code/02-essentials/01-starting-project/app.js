@@ -1,12 +1,12 @@
-import express from 'express';
+import express from "express";
 
-import { HTMX_KNOWLEDGE } from './data/htmx-info.js';
+import { HTMX_KNOWLEDGE } from "./data/htmx-info.js";
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
           
         />
         <link rel="icon" href="/icon.png" />
+        <script src="/htmx.js" defer></script>
         <link rel="stylesheet" href="/main.css" />
       </head>
       <body>
