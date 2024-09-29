@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 
         <main>
           <p>HTMX is a JavaScript library that you use without writing JavaScript code.</p>
-          <form>
+          <form hx-post="/note" hx-target="ul" hx-swap="outerHTML">
             <p>
               <label for="note">Your note</label>
               <input type="text" id="note" name="note">
@@ -52,6 +52,13 @@ app.post("/note", (req, res) => {
   const enteredNote = req.body.note;
 
   HTMX_KNOWLEDGE.unshift(enteredNote);
+
+  // res.redirect("/");
+  res.send(`
+    <ul>
+      ${HTMX_KNOWLEDGE.map((info) => `<li>${info}</li>`).join("")}
+    </ul>
+`);
 });
 
 app.listen(3000);
