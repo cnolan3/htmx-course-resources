@@ -1,12 +1,13 @@
-import express from 'express';
+import express from "express";
 
-import { HTMX_KNOWLEDGE } from './data/htmx-info.js';
+import { HTMX_KNOWLEDGE } from "./data/htmx-info.js";
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static("public"));
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -39,12 +40,18 @@ app.get('/', (req, res) => {
             </p>
           </form>
           <ul>
-            ${HTMX_KNOWLEDGE.map((info) => `<li>${info}</li>`).join('')}
+            ${HTMX_KNOWLEDGE.map((info) => `<li>${info}</li>`).join("")}
           </ul>
         </main>
       </body>
     </html>
   `);
+});
+
+app.post("/note", (req, res) => {
+  const enteredNote = req.body.note;
+
+  HTMX_KNOWLEDGE.unshift(enteredNote);
 });
 
 app.listen(3000);
